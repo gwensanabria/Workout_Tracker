@@ -1,13 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const morgan = require('morgan')
-const apiR = require('./routes/apiRoutes.js')
-const htmlR = require('./routes/htmlRoutes.js')
+// const morgan = require('morgan')
+// const apiR = require('./routes/apiRoutes.js')
+// const htmlR = require('./routes/htmlRoutes.js')
 
 const PORT = process.env.PORT || 8080
 
 const app = express()
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
