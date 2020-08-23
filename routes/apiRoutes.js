@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const Workout = require("../models/workout");
+const Workout = require("../models/Workout");
+// const { Mongoose } = require("mongoose");
 
-module.exports = function (app) {
-  
+
+    // Post a workout
     router.post("/api/workouts", (req, res) => {
     Workout.create({})
       .then(dbWorkout => {
@@ -13,6 +14,7 @@ module.exports = function (app) {
       });
   });
 
+  // Get all workouts
   router.get("/api/workouts", (req, res) => {
     Workout.find()
       .then((dbWorkout) => {
@@ -23,10 +25,11 @@ module.exports = function (app) {
       });
   });
 
+  //Set a 1 week limit
   router.get("/api/workouts/range", (req, res) => {
-    Workout.find({})
+    Workout.find({}).sort({'day': 1}).limit(7)
       .then(dbWorkout => {
-          console.log(dbWorkout)
+        //   console.log(dbWorkout)
         res.json(dbWorkout);
       })
       .catch(err => {
@@ -34,6 +37,7 @@ module.exports = function (app) {
       });
   });
 
+  //Update a workout
   router.put("/api/workouts/:id", ({ body, params }, res) => {
     Workout.findByIdAndUpdate(
       params.id,
@@ -52,6 +56,13 @@ module.exports = function (app) {
     console.log("Time: ", Date.now());
     next();
   });
-};
 
-// module.exports = router;
+//   TRING TO SOLVE CORS ISSUE
+// router.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", '*')
+//     res.header("Access-Control-Allow-Origin", 'Origin, X-Requested-With, Content-Type, Accept')
+//     next()
+// })
+
+
+module.exports = router;
